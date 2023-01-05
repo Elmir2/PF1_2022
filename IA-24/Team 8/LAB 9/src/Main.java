@@ -1,35 +1,32 @@
-public class Solution {
+public class Main {
     public static void main(String[] args) {
-        int decimalNumber = Integer.MAX_VALUE;
-        System.out.println("Десяткове число " + decimalNumber + " дорівнює двійковому числу " + toBinary(decimalNumber));
-        String binaryNumber = "1111111111111111111111111111111";
-        System.out.println("Двійкове число " + binaryNumber + " дорівнює десятковому числу " + toDecimal(binaryNumber));
+        printResults("");
+        printResults("Користувач з ніком m6estr0 цього місяця написав в 3 рази більше коментарів ніж користувач з ніком Sherst 4 місяці тому");
+        printResults("465ad ads94798 sad9asd7 64 asd");
     }
 
-    public static String toBinary(int decimalNumber) {
-        String binaryNumber = "";
-        if (decimalNumber <= 0) {
-            return binaryNumber;
+    private static int printResults(String sentence) {
+        System.out.println("Результат:");
+        try {
+            System.out.println(check(sentence));
+        } catch (NumberFormatException e) {
+            System.out.println("Ви задали пусте речення");
         }
-
-        while (decimalNumber != 0) {
-            binaryNumber = decimalNumber % 2 + binaryNumber;
-            decimalNumber = decimalNumber / 2;
-        }
-        return binaryNumber;
+        return 0;
     }
 
-    public static int toDecimal(String binaryNumber) {
-        int decimalNumber = 0;
-        if (binaryNumber == null) {
-            return decimalNumber;
-        }
 
-        for (int i = 0; i < binaryNumber.length(); i++) {
-            int index = binaryNumber.length() - 1 - i;
-            int value = Character.getNumericValue(binaryNumber.charAt(index));
-            decimalNumber += value * Math.pow(2, i);
+    private static int check(String sentence) {
+        if (sentence == "" || sentence == " ") {
+            throw new NumberFormatException();
         }
-        return decimalNumber;
+        int k = 0;
+        String[] splited = sentence.toLowerCase().split(" ");
+        for (String i : splited) {
+            if (i.matches("([a-z]+[0-9]+.*)|([0-9]+[a-z]+)")) {
+                k++;
+            }
+        }
+        return k;
     }
 }
